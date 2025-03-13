@@ -1,15 +1,22 @@
-import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
+
+# Import other necessary functions
 from cv_parser.utils.file_converter import convert_to_text
 from cv_parser.utils.parser import extract_cv_data
 from cv_parser.utils.parser import upload_to_google_sheets
 import nltk
+import os
 
 # Download necessary NLTK data files
 nltk.download('punkt', quiet=True)
 nltk.download('averaged_perceptron_tagger_eng', quiet=True)
 
+# Create the Flask app instance
 app = Flask(__name__)
+
+# Enable CORS for all routes and origins
+CORS(app)
 
 @app.route('/process_cv', methods=['POST'])
 def process_cv():
